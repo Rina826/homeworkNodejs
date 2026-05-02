@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "server.js",
+  "main": "package.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "npx nodemon server.js",
+    "start": "node package.js",
+    "dev": "npx nodemon package.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

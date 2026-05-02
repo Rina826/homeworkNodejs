@@ -1,28 +1,33 @@
-import db from '../config/db.js'
+import BaseModel from './BaseModel.js'
 
-export default class User {
+export default class User extends BaseModel {
+  static tableName = 'users'
+
   static async getAll() {
-    const [rows] = await db.execute('SELECT * FROM users')
-    return rows
+    return this.query(`SELECT * FROM ${this.tableName}`)
   }
 
   static async create({ name }) {
-    const [result] = await db.execute('INSERT INTO users (name) VALUES (?)', [
-      name
-    ])
+    const result = await this.execute(
+      `INSERT INTO ${this.tableName} (name) VALUES (?)`,
+      [name]
+    )
     return { id: result.insertId, name }
   }
 
   static async updateById(id, { name }) {
-    const [result] = await db.execute('UPDATE users SET name = ? WHERE id = ?', [
-      name,
-      id
-    ])
+    const result = await this.execute(
+      `UPDATE ${this.tableName} SET name = ? WHERE id = ?`,
+      [name, id]
+    )
     return result.affectedRows
   }
 
   static async deleteById(id) {
-    const [result] = await db.execute('DELETE FROM users WHERE id = ?', [id])
+    const result = await this.execute(
+      `DELETE FROM ${this.tableName} WHERE id = ?`,
+      [id]
+    )
     return result.affectedRows
   }
 }
